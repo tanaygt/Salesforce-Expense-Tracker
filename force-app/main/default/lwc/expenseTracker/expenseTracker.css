@@ -1,0 +1,27 @@
+.app-header {
+  display: flex; align-items: center; justify-content: space-between;
+  background: linear-gradient(135deg, #f3f5ff, #eef9ff);
+  border-radius: 16px;
+}
+.logo-wrap { display: flex; align-items: center; gap: 12px; }
+.logo { width: 56px; height: 56px; }
+.logo circle { fill: white; stroke: #7f8cff; stroke-width: 6; }
+.logo-text { fill: #5561ff; font-size: 42px; font-weight: 700; dy: .35em; }
+.subtitle { color: #5f6b7a; margin-top: 2px; }
+
+.form-grid > * { margin-bottom: 12px; }
+.btn-row { display: flex; }
+
+.summary-wrap { display:flex; align-items:center; gap:20px; }
+.numbers { display:grid; grid-template-columns: 1fr 1fr 1fr; gap:12px; width:100%; }
+.num span { display:block; color:#6b7280; font-size:12px; }
+.num strong { font-size:18px; }
+
+.filters { display:grid; grid-template-columns: 1fr 1fr 1fr; gap:12px; }
+.budget-inline { display:flex; align-items:center; }
+.cat.Food    { background:#fff7ed; }
+.cat.Travel  { background:#eff6ff; }
+.cat.Shopping{ background:#f5f3ff; }
+.cat.Bills   { background:#f0fdf4; }
+.cat.Education{background:#fefce8;}
+.cat.Health  { background:#fff1f2; }

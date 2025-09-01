@@ -1,0 +1,76 @@
+<template>
+  <!-- Header / Logo -->
+  <div class="app-header slds-p-around_medium slds-m-bottom_medium">
+    <div class="logo-wrap">
+      <svg viewBox="0 0 120 120" class="logo">
+        <circle cx="60" cy="60" r="54"></circle>
+        <text x="50%" y="58%" text-anchor="middle" class="logo-text">₹</text>
+      </svg>
+      <div class="title">
+        <h1 class="slds-text-heading_medium">Expense Tracker</h1>
+        <p class="subtitle">Track • Analyze • Save</p>
+      </div>
+    </div>
+    <div class="header-actions">
+      <lightning-button label="Export CSV" onclick={handleExportCsv}></lightning-button>
+    </div>
+  </div>
+
+  <!-- Controls Row -->
+  <div class="slds-grid slds-gutters slds-wrap slds-m-bottom_medium">
+    <div class="slds-col slds-size_1-of-1 slds-large-size_1-of-2">
+      <lightning-card title="Add / Edit Expense" icon-name="utility:new">
+        <div class="slds-p-around_medium form-grid">
+          <lightning-input type="number" label="Amount (₹)" value={form.amount} onchange={handleAmount}></lightning-input>
+          <lightning-combobox label="Category" value={form.category} options={categoryOptions} onchange={handleCategory}></lightning-combobox>
+          <lightning-input type="date" label="Date" value={form.date} onchange={handleDate}></lightning-input>
+          <lightning-textarea label="Note" value={form.note} onchange={handleNote}></lightning-textarea>
+          <div class="btn-row">
+            <lightning-button variant="brand" label={submitLabel} onclick={handleSubmit}></lightning-button>
+            <lightning-button label="Reset" variant="neutral" onclick={resetForm} class="slds-m-left_small"></lightning-button>
+          </div>
+        </div>
+      </lightning-card>
+    </div>
+
+    <div class="slds-col slds-size_1-of-1 slds-large-size_1-of-2">
+      <lightning-card title="This Month Summary" icon-name="utility:summary">
+        <div class="slds-p-around_medium summary-wrap">
+          <div class="ring">
+            <lightning-progress-ring value={budgetProgress} size="large" variant={progressVariant} direction="fill">
+            </lightning-progress-ring>
+          </div>
+          <div class="numbers">
+            <div class="num"><span>Total Spent</span><strong>₹ {totalThisMonth}</strong></div>
+            <div class="num"><span>Budget</span>
+              <div class="budget-inline">
+                <lightning-input type="number" value={budget} onchange={handleBudget} variant="label-hidden" placeholder="Set budget"></lightning-input>
+                <lightning-button-icon icon-name="utility:save" alternative-text="Save budget" onclick={saveBudget} class="slds-m-left_x-small"></lightning-button-icon>
+              </div>
+            </div>
+            <div class="num"><span>Remaining</span><strong>₹ {remaining}</strong></div>
+          </div>
+        </div>
+
+        <div class="slds-p-around_medium filters">
+          <lightning-input type="search" label="Search note" value={filters.search} onchange={handleSearch}></lightning-input>
+          <lightning-combobox label="Category" value={filters.category} options={filterCategoryOptions} onchange={handleFilterCategory}></lightning-combobox>
+          <lightning-input type="month" label="Month" value={filters.month} onchange={handleFilterMonth}></lightning-input>
+          <lightning-button label="Clear Filters" onclick={clearFilters} class="slds-m-top_small"></lightning-button>
+        </div>
+      </lightning-card>
+    </div>
+  </div>
+
+  <!-- Table -->
+  <lightning-card title="Expenses" icon-name="utility:table" class="slds-m-bottom_large">
+    <div class="slds-p-around_medium">
+      <lightning-datatable key-field="id"
+                           data={filteredExpenses}
+                           columns={columns}
+                           hide-checkbox-column
+                           onrowaction={handleRowAction}>
+      </lightning-datatable>
+    </div>
+  </lightning-card>
+</template>
